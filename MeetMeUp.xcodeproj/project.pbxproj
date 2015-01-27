@@ -82,9 +82,11 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		23C1468419EDD38900D565E1 /* Data Model */ = {
+		23C1468419EDD38900D565E1 /* Data Models */ = {
 			isa = PBXGroup;
 			children = (
+				23D10C4D19BE112A001F060E /* CommentTableViewCell.h */,
+				23D10C4E19BE112A001F060E /* CommentTableViewCell.m */,
 				23D10C5019BE33B9001F060E /* Member.h */,
 				23D10C5119BE33B9001F060E /* Member.m */,
 				23D10C4119BE002C001F060E /* Event.h */,
@@ -92,7 +94,7 @@
 				23D10C4A19BE0DF5001F060E /* Comment.h */,
 				23D10C4B19BE0DF5001F060E /* Comment.m */,
 			);
-			name = "Data Model";
+			name = "Data Models";
 			sourceTree = "<group>";
 		};
 		23D10C0F19BDF342001F060E = {
@@ -116,22 +118,11 @@
 		23D10C1A19BDF342001F060E /* MeetMeUp */ = {
 			isa = PBXGroup;
 			children = (
+				23D10C2519BDF342001F060E /* Main.storyboard */,
 				23D10C1F19BDF342001F060E /* AppDelegate.h */,
 				23D10C2019BDF342001F060E /* AppDelegate.m */,
-				23D10C2219BDF342001F060E /* ViewController.h */,
-				23D10C2319BDF342001F060E /* ViewController.m */,
-				23D10C3E19BDFF1C001F060E /* EventDetailViewController.h */,
-				23D10C3F19BDFF1C001F060E /* EventDetailViewController.m */,
-				23D10C2519BDF342001F060E /* Main.storyboard */,
-				23D10C5619BE5E51001F060E /* MemberViewController.h */,
-				23D10C5719BE5E51001F060E /* MemberViewController.m */,
-				23D10C4719BE0D7D001F060E /* CommentsTableViewController.h */,
-				23D10C4819BE0D7D001F060E /* CommentsTableViewController.m */,
-				23D10C4D19BE112A001F060E /* CommentTableViewCell.h */,
-				23D10C4E19BE112A001F060E /* CommentTableViewCell.m */,
-				23D10C4419BE04DA001F060E /* WebViewController.h */,
-				23D10C4519BE04DA001F060E /* WebViewController.m */,
-				23C1468419EDD38900D565E1 /* Data Model */,
+				94D764F11A7737F400B28150 /* VCs */,
+				23C1468419EDD38900D565E1 /* Data Models */,
 				23D10C2819BDF342001F060E /* Images.xcassets */,
 				23D10C1B19BDF342001F060E /* Supporting Files */,
 			);
@@ -162,6 +153,23 @@
 				23D10C3319BDF342001F060E /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		94D764F11A7737F400B28150 /* VCs */ = {
+			isa = PBXGroup;
+			children = (
+				23D10C2219BDF342001F060E /* ViewController.h */,
+				23D10C2319BDF342001F060E /* ViewController.m */,
+				23D10C3E19BDFF1C001F060E /* EventDetailViewController.h */,
+				23D10C3F19BDFF1C001F060E /* EventDetailViewController.m */,
+				23D10C4419BE04DA001F060E /* WebViewController.h */,
+				23D10C4519BE04DA001F060E /* WebViewController.m */,
+				23D10C4719BE0D7D001F060E /* CommentsTableViewController.h */,
+				23D10C4819BE0D7D001F060E /* CommentsTableViewController.m */,
+				23D10C5619BE5E51001F060E /* MemberViewController.h */,
+				23D10C5719BE5E51001F060E /* MemberViewController.m */,
+			);
+			name = VCs;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

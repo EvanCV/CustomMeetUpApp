@@ -2,8 +2,8 @@
 //  EventDetailViewController.m
 //  MeetMeUp
 //
-//  Created by Dave Krawczyk on 9/8/14.
-//  Copyright (c) 2014 Mobile Makers. All rights reserved.
+//  Created by Evan Vandenberg 1/26/2015.
+//  Copyright (c) 2014 Evan Vandenberg.
 //
 
 #import "Event.h"
@@ -32,8 +32,7 @@
     self.hostedByLabel.text = self.event.hostedBy;
     self.descriptionTextview.text = self.event.eventDescription;
 
-
-    self.navigationItem.rightBarButtonItem.title = @"MEHH";
+    self.navigationItem.rightBarButtonItem.title = @"More";
 
 }
 

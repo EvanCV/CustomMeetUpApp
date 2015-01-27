@@ -2,8 +2,8 @@
 //  Event.h
 //  MeetMeUp
 //
-//  Created by Dave Krawczyk on 9/8/14.
-//  Copyright (c) 2014 Mobile Makers. All rights reserved.
+//  Created by Evan Vandenberg 1/26/2015.
+//  Copyright (c) 2014 Evan Vandenberg.
 //
 
 #import "Comment.h"
@@ -22,6 +22,10 @@
 @property (nonatomic, strong) NSArray *commentsArray;
 
 + (NSArray *)eventsFromArray:(NSArray *)incomingArray;
++ (void)performSearchWithKeyword:(NSString *)keyword :(void(^)(NSArray *meetUps))complete;
 - (instancetype)initWithDictionary:(NSDictionary *)dictionary;
+- (void)getEventDetailsWithEventID :(NSString *)eventID :(void(^)(NSArray *eventDetailsArray))complete;
+- (void)getImageWithCompletion: (NSURL *)photoURL :(void(^)(NSData *imageData))complete;
+
 
 @end

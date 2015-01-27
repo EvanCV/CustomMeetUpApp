@@ -2,8 +2,8 @@
 //  Member.h
 //  MeetMeUp
 //
-//  Created by Dave Krawczyk on 9/8/14.
-//  Copyright (c) 2014 Mobile Makers. All rights reserved.
+//  Created by Evan Vandenberg 1/26/2015.
+//  Copyright (c) 2014 Evan Vandenberg.
 //
 
 #import <Foundation/Foundation.h>
@@ -18,7 +18,10 @@
 @property (nonatomic, strong) NSURL *photoURL;
 
 
++ (void)getMemberByID:(NSString *)memberID withCompletion:(void(^)(Member *memberInfo))complete;
 - (instancetype)initWithDictionary:(NSDictionary *)dictionary;
+- (void)getUserImageWithCompletion:(void(^)(NSData *imageData))complete;
+
 
 
 @end

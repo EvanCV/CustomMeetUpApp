@@ -2,8 +2,8 @@
 //  WebViewController.h
 //  TicTacToe
 //
-//  Created by Dave Krawczyk on 9/3/14.
-//  Copyright (c) 2014 Dave Krawczyk. All rights reserved.
+//  Created by Evan Vandenberg 1/26/2015.
+//  Copyright (c) 2014 Evan Vandenberg.
 //
 
 #import <UIKit/UIKit.h>

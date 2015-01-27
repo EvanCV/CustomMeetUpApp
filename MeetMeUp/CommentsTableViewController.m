@@ -2,8 +2,8 @@
 //  CommentsTableViewController.m
 //  MeetMeUp
 //
-//  Created by Dave Krawczyk on 9/8/14.
-//  Copyright (c) 2014 Mobile Makers. All rights reserved.
+//  Created by Evan Vandenberg 1/26/2015.
+//  Copyright (c) 2014 Evan Vandenberg.
 //
 
 #import "Event.h"
@@ -24,26 +24,20 @@
 {
     [super viewDidLoad];
 
-    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.meetup.com/2/event_comments?&sign=true&photo-host=public&event_id=%@&page=20&key=4b6a576833454113112e241936657e47",self.event.eventID]];
 
-    NSURLRequest *request = [NSURLRequest requestWithURL:url];
-
-    [NSURLConnection sendAsynchronousRequest:request
-                                       queue:[NSOperationQueue mainQueue]
-                           completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
-
-                               NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
-
-                               NSArray *jsonArray = [dict objectForKey:@"results"];
-
-                               self.dataArray = [Comment objectsFromArray:jsonArray];
-                               [self.tableView reloadData];
-                           }];
+    [self.event getEventDetailsWithEventID:self.event.eventID :^(NSArray *eventDetailsArray) {
+        self.dataArray = eventDetailsArray;
+        [self.tableView reloadData];
+    }];
 
     self.dateFormatter = [[NSDateFormatter alloc]init];
     [self.dateFormatter setDateStyle:NSDateFormatterShortStyle];
 }
 
+- (void)setDataArray:(NSArray *)dataArray
+{
+    _dataArray = dataArray;
+}
 
 #pragma mark - Table view data source
 
@@ -57,23 +51,25 @@
 {
     CommentTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"commentCell"];
     
-    Comment *c = self.dataArray[indexPath.row];
+    Comment *c = [[Comment alloc]initWithDictionary:[self.dataArray objectAtIndex:indexPath.row]];
     cell.authorLabel.text = c.author;
     cell.commentLabel.text = c.text;
     cell.dateLabel.text = [self.dateFormatter stringFromDate:c.date];
     return cell;
 }
 
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
+
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     MemberViewController *memberVC = [segue destinationViewController];
-
-    Comment *comment = self.dataArray[[self.tableView indexPathForSelectedRow].row];
+    NSIndexPath *path = [self.tableView indexPathForSelectedRow];
+    Comment *comment = [[Comment alloc]initWithDictionary:[self.dataArray objectAtIndex:path.row]];
     memberVC.memberID = comment.memberID;
 }
 

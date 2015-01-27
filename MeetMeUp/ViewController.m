@@ -2,8 +2,8 @@
 //  ViewController.m
 //  MeetMeUp
 //
-//  Created by Dave Krawczyk on 9/8/14.
-//  Copyright (c) 2014 Mobile Makers. All rights reserved.
+//  Created by Evan Vandenberg 1/26/2015.
+//  Copyright (c) 2014 Evan Vandenberg.
 //
 
 #import "Event.h"
@@ -22,38 +22,14 @@
             
 - (void)viewDidLoad {
     [super viewDidLoad];
-
-    [self performSearchWithKeyword:@"mobile"];
-
 }
 
-- (void)performSearchWithKeyword:(NSString *)keyword
-{
-    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.meetup.com/2/open_events.json?zip=60604&text=%@&time=,1w&key=4b6a576833454113112e241936657e47",keyword]];
-    
-    NSURLRequest *request = [NSURLRequest requestWithURL:url];
-    
-    [NSURLConnection sendAsynchronousRequest:request
-                                       queue:[NSOperationQueue mainQueue]
-                           completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
-                               
-                               NSArray *jsonArray = [[NSJSONSerialization JSONObjectWithData:data
-                                                                                     options:NSJSONReadingAllowFragments
-                                                                                       error:nil] objectForKey:@"results"];
-                               
-                               
-                               self.dataArray = [Event eventsFromArray:jsonArray];
-                               [self.tableView reloadData];
-                           }];
-
-}
-
-#pragma mark - Tableview Methods
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return self.dataArray.count;
 }
+
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -65,26 +41,31 @@
     cell.detailTextLabel.text = e.address;
     if (e.photoURL)
     {
-        NSURLRequest *imageReq = [NSURLRequest requestWithURL:e.photoURL];
-        
-        [NSURLConnection sendAsynchronousRequest:imageReq queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
-           dispatch_async(dispatch_get_main_queue(), ^{
-               if (!connectionError) {
-                   [cell.imageView setImage:[UIImage imageWithData:data]];
-                   [cell layoutSubviews];
-               }
-           });
-
-
-        }];
-        
-        
-    }else
+        //Instance method for setting custom event images
+         [e getImageWithCompletion:e.photoURL :^(NSData *imageData) {
+             cell.imageView.image = [UIImage imageWithData:imageData];
+             [cell layoutSubviews];//forces the view to update/re-draw itself
+         }];
+    }
+    else
     {
+        //Defaults to MeetUp Logo
        [cell.imageView setImage:[UIImage imageNamed:@"logo"]];
     }
     
     return cell;
+}
+
+
+//Class method - Takes text entered into search bar and searches for similar events using MeetUp API
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
+{
+    [Event performSearchWithKeyword:searchBar.text :^(NSArray *meetUps) {
+        self.dataArray = meetUps;
+        [self.tableView reloadData];
+    }];
+    
+    [searchBar resignFirstResponder];
 }
 
 
@@ -94,14 +75,6 @@
 
     Event *e = self.dataArray[self.tableView.indexPathForSelectedRow.row];
     detailVC.event = e;
-}
-
-#pragma searchbar delegate
-
-- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
-{
-    [self performSearchWithKeyword:searchBar.text];
-    [searchBar resignFirstResponder];
 }
 
 @end
